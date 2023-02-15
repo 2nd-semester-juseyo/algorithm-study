@@ -1,19 +1,11 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 const int MAX = 4;
 const int dir[9][2] = { {0, 0}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1} };
 int ans = 0;
-int s_dir = 0;
 vector<vector<pair<int, int>>> space(4, vector<pair<int, int>>(4));
-
-struct Info {
-	int d, r, c;
-};
 
 void rotate(int& d) {
 	if (++d == 9) {
@@ -22,7 +14,6 @@ void rotate(int& d) {
 }
 
 void move(vector<vector<pair<int, int>>>& s, pair<int, int> p) {
-
 	for (int i = 1; i <= 16; i++) {
 		bool flag = false;
 		pair<int, int> pos;
@@ -88,7 +79,9 @@ int main() {
 
 	int score = space[0][0].first;
 	int direction = space[0][0].second;
+
 	space[0][0] = { 0, 0 };
+
 	func(space, { 0, 0 }, score, direction);
 	cout << ans << '\n';
 	return 0;
