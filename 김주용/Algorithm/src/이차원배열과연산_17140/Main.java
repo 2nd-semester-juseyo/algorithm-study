@@ -35,11 +35,10 @@ public class Main {
 	public static int solution() {
 		int time = 0;
 		while(time < 100) {
-			if(R < board.length && C < board[0].length && board[R-1][C-1] == K) {
+			if(R-1 < board.length && C-1 < board[0].length && board[R-1][C-1] == K) {
 				return time;
 			}
 			time++;
-			System.out.println(board.length + " "  + board[0].length);
 			// R연산
 			if(board.length >= board[0].length) {
 				int maxLength = 0;
@@ -55,7 +54,6 @@ public class Main {
 						board[i] = newLine;
 					}
 				}
-				System.out.println("1");
 			} else {
 				int maxLength = 0;
 				ArrayList<int []> newCols = new ArrayList<>();
@@ -67,8 +65,6 @@ public class Main {
 					int[] newCol = doSort(col);
 					maxLength = Math.max(maxLength, newCol.length);
 					newCols.add(newCol);
-					System.out.println("this");
-					System.out.println(Arrays.toString(newCol));
 				}
 
 				int[][] newBoard = new int[maxLength][board[0].length];
@@ -90,11 +86,6 @@ public class Main {
 				}
 					
 			}
-			for(int[] b : board) {
-				System.out.println(Arrays.toString(b));
-			}
-			System.out.println("---------------");
-	
 				
 		}
 		return -1;
