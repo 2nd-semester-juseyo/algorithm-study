@@ -34,7 +34,7 @@ public class Main {
 	
 	public static int solution() {
 		int time = 0;
-		while(time < 100) {
+		while(time <= 100) {
 			if(R-1 < board.length && C-1 < board[0].length && board[R-1][C-1] == K) {
 				return time;
 			}
