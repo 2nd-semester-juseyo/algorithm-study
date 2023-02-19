@@ -33,35 +33,28 @@ public class Main {
 		
 		int num = board[0][0][0];
 		int dir = board[0][0][1];
-		board[0][0] = new int[] {-1, board[0][0][1]};
 		
-		moveShark(board, 0, 0, dir, num);
+		
+		moveShark(board, 0, 0, 0, 0);
 		
 		System.out.println(answer);
 		
 		
 	}
 	
-	public static void moveShark(int[][][] board, int y, int x, int dir, int eat) {
-		if(eat >= 136) {
-			return;
-		}
+	public static void moveShark(int[][][] board, int y, int x, int eat, int dep) {
+		board = clone(board);
 		
 		
-		
-		answer = Math.max(answer, eat);
-		
-		board = moveFish(board.clone());
-		
-		
-		System.out.println(eat);
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
-				System.out.print(board[i][j][0] + " " );
-			}
-			System.out.println("");
-		}
-		System.out.println("---------");
+		int eatNum = board[y][x][0];
+		int dir = board[y][x][1];
+		board[y][x] = new int[] {0, 0};
+		shark[0] = y;
+		shark[1] = x;
+		answer = Math.max(answer, eat + eatNum);
+
+		board = moveFish(board).clone();
+
 		
 		for(int i = 1; i < 4; i++) {
 			int ny = y + dy[dir] * i;
@@ -69,13 +62,7 @@ public class Main {
 			
 			if(-1 < ny && ny < 4 && -1 < nx && nx < 4 ) {
 				if(board[ny][nx][0] > 0) {
-					
-					int eatNum = board[ny][nx][0];
-					int eatDir = board[ny][nx][1];
-					board[ny][nx] = new int[] {-1, eatDir};
-					moveShark(board.clone(), ny, nx, eatDir, eat + eatNum);	
-					
-					board[ny][nx] = new int []{eatNum, eatDir};
+					moveShark(board, ny, nx, eat + eatNum, dep + 1);	
 					
 				}
 			}
@@ -101,7 +88,7 @@ public class Main {
 				int ny = y + dy[nd], nx = x + dx[nd];
 				
 				if(-1 < ny && ny < 4 && -1 < nx && nx < 4 ) {
-					if(board[ny][nx][0] < 0) {
+					if(ny == shark[0] && nx == shark[1]) {
 						continue;
 					}
 					if (board[ny][nx][0] > 0) {
@@ -114,8 +101,8 @@ public class Main {
 				}
 			}
 		}
-		int[][][] newBoard = board.clone();
-		return newBoard;
+		
+		return clone(board);
 	}
 	
 	public static int[] indexOf(int[][][] board, int num) {
@@ -127,6 +114,16 @@ public class Main {
 			}
 		}
 		return new int []{-1, -1};
+	}
+	
+	public static int[][][] clone(int[][][] board) {
+		int[][][] copyBoard = new int[4][4][2];
+		for(int j = 0; j < 4; j++) {
+			for(int k = 0; k < 4; k++) {
+				copyBoard[j][k] = board[j][k];
+			}
+		}		
+		return copyBoard;
 	}
 
 }
