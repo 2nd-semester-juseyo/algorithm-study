@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <queue>
-#include <string.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -74,12 +70,7 @@ void simulate(int l) {
 				}
 			}
 
-			if (cnt >= 3) {
-				b[i][j] = temp[i][j];
-			}
-			else {
-				b[i][j] = temp[i][j] - 1;
-			}
+			b[i][j] = temp[i][j] - !(cnt >= 3);
 		}
 	}
 }
